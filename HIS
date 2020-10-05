@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+use strict;
+
+my $in0 = $ARGV[0]; ##- Cabbage_control.ihs.list
+my $out = $in0.".form";
+
+open IN0, $in0;
+open OUT0, ">$out";
+print OUT0 join("\t", "ihs.CHR", "ihs.POSITION", "ihs.IHS", "ihs.LOGPVALUE"), "\n";
+while(<IN0>){
+  next, if(/ihs.CHR/);
+  s/"//g;
+  my @temp = split(/\t/, $_);
+  print OUT0 join("\t", $temp[1], $temp[2], $temp[3], $temp[4]), "\n";
+}
+close IN0;
+close OUT0;
